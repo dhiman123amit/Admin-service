@@ -11,5 +11,11 @@ router.get('/name',(req,res,next)=>{
     res.status(200).json({
         mesage:"My name is Amit Sharma."
     })
+});
+
+router.post('/',(req,res,next)=>{
+    res.status(200).json({
+        message:"Post request."
+    })
 })
 module.exports=router;
