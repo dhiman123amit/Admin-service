@@ -4,14 +4,19 @@ const app = express();
 const facultyRouter = require('./Api/router/facultyRoutes/facultyRoutes');
 const studentRouter = require('./Api/router/studentRoutes/studentRoutes');
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:3000');
 
-mongoose.connection.on('errr', err => {
-    console.log('err', err);
-});
-mongoose.connection.on('Conectes', err => {
-    console.log('Conectes', err);
-});
+const bodyParser=require('body-parser');
+// mongoose.connect('mongodb://localhost:3000');
+
+// mongoose.connection.on('errr', err => {
+//     console.log('err', err);
+// });
+// mongoose.connection.on('Conectes', err => {
+//     console.log('Conectes', err);
+// });
+
+app.use(bodyParser.urlencoded({extends:false}));
+app.use(bodyParser.json())
 app.use('/faculty', facultyRouter);
 app.use('/student', studentRouter);
 
