@@ -61,41 +61,38 @@ router.get('/facultyList', (req, res, next) => {
 
 // find single faculty data
 
-router.get('/:id',(req,res,next)=>{
+router.get('/:id', (req, res, next) => {
     Faculty.findById(req.params.id)
- .then(result=>{
+        .then(result => {
 
-    res.status(200).json({
-        singleFacultyData:result,
-        message:"Facul;ty data"
-    });
- }).catch(err=>{
-     res.status(500).json({
-         err:err
-     })
- })
+            res.status(200).json({
+                singleFacultyData: result,
+                message: "Facul;ty data"
+            });
+        }).catch(err => {
+            res.status(500).json({
+                err: err
+            })
+        })
 });
 
 // Delete faculty 
 
- router.delete('/:id',(req,res,next)=>[
-    
-
-    Faculty.remove({_id:req.params.id}).then(result=>{
-
+router.delete('/:id', (req, res, next) => [
+    Faculty.remove({ _id: req.params.id }).then(result => {
         res.status(200).json({
-            message:"Faculty deleted",
-            result:result
+            message: "Faculty deleted",
+            result: result
         })
-     }).catch(err=>{
-         res.status(500).json({
-             error:"Somthing is wrong.",
-             err:err
-         });
-     })
- ]);
+    }).catch(err => {
+        res.status(500).json({
+            error: "Somthing is wrong.",
+            err: err
+        });
+    })
+]);
 
- //Updare faculty 
+//Updare faculty 
 
 router.put('/update/:id', (req, res, next) => {
     console.log(req.params.id);
@@ -107,14 +104,14 @@ router.put('/update/:id', (req, res, next) => {
             gender: req.body.gender,
             phone: req.body.phone,
         }
-    }).then(result=>{
+    }).then(result => {
         res.status(200).json({
-            result:result,
-            message:"Updated successed"
+            result: result,
+            message: "Updated successed"
         });
-    }).catch(err=>{
-        err:'Somting is wrong';
-        err:err
+    }).catch(err => {
+        err: 'Somting is wrong';
+        err: err
     })
 
 });
