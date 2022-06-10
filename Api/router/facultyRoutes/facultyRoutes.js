@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Student = require('../model/facultySchema');
+const Faculty = require('../model/facultySchema');
 const mongoose = require('mongoose');
 
 router.get('/', (req, res, next) => {
@@ -21,7 +21,7 @@ router.post('/', (req, res, next) => {
     // })
     // console.log('value',req.body);
 
-    const student = new Student({
+    const faculty = new Faculty({
         _id: new mongoose.Types.ObjectId,
         name: req.body.name,
         email: req.body.email,
@@ -29,7 +29,7 @@ router.post('/', (req, res, next) => {
         phone: req.body.phone,
     });
 
-    student.save().then(result => {
+    faculty.save().then(result => {
         console.log(result);
         res.status(200).json({
             newFaculty: result
@@ -45,7 +45,7 @@ router.post('/', (req, res, next) => {
 });
 
 router.get('/facultyList', (req, res, next) => {
-    Student.find()
+    Faculty.find()
         .then(result => {
             res.status(200).json({
                 facultyList: result
@@ -62,7 +62,7 @@ router.get('/facultyList', (req, res, next) => {
 // find single faculty data
 
 router.get('/:id',(req,res,next)=>{
- Student.findById(req.params.id)
+    Faculty.findById(req.params.id)
  .then(result=>{
 
     res.status(200).json({
@@ -81,7 +81,7 @@ router.get('/:id',(req,res,next)=>{
  router.delete('/:id',(req,res,next)=>[
     
 
-     Student.remove({_id:req.params.id}).then(result=>{
+    Faculty.remove({_id:req.params.id}).then(result=>{
 
         res.status(200).json({
             message:"Faculty deleted",
@@ -91,9 +91,33 @@ router.get('/:id',(req,res,next)=>{
          res.status(500).json({
              error:"Somthing is wrong.",
              err:err
-         })
+         });
      })
- ])
+ ]);
+
+ //Updare faculty 
+
+router.put('/update/:id', (req, res, next) => {
+    console.log(req.params.id);
+
+    Faculty.findOneAndUpdate({ _id: req.params.id }, {
+        $set: {
+            name: req.body.name,
+            email: req.body.email,
+            gender: req.body.gender,
+            phone: req.body.phone,
+        }
+    }).then(result=>{
+        res.status(200).json({
+            result:result,
+            message:"Updated successed"
+        });
+    }).catch(err=>{
+        err:'Somting is wrong';
+        err:err
+    })
+
+});
 
 
 
