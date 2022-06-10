@@ -59,6 +59,42 @@ router.get('/facultyList', (req, res, next) => {
         })
 });
 
+// find single faculty data
+
+router.get('/:id',(req,res,next)=>{
+ Student.findById(req.params.id)
+ .then(result=>{
+
+    res.status(200).json({
+        singleFacultyData:result,
+        message:"Facul;ty data"
+    });
+ }).catch(err=>{
+     res.status(500).json({
+         err:err
+     })
+ })
+});
+
+// Delete faculty 
+
+ router.delete('/:id',(req,res,next)=>[
+    
+
+     Student.remove({_id:req.params.id}).then(result=>{
+
+        res.status(200).json({
+            message:"Faculty deleted",
+            result:result
+        })
+     }).catch(err=>{
+         res.status(500).json({
+             error:"Somthing is wrong.",
+             err:err
+         })
+     })
+ ])
+
 
 
 module.exports = router;
